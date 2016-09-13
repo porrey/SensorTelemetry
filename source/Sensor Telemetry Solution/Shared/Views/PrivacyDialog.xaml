@@ -1,0 +1,30 @@
+﻿<ContentDialog x:Class="Porrey.SensorTelemetry.Views.PrivacyDialog"
+			   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			   xmlns:local="using:Porrey.SensorTelemetry.Views"
+			   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			   mc:Ignorable="d"
+			   Title="Privacy"
+			   PrimaryButtonText="Done">
+
+	<StackPanel Orientation="Vertical">
+		<TextBlock TextWrapping="WrapWholeWords"
+				   Margin="0,10,0,0">
+				   This privacy policy sets out how “Sensor Telemetry uses and protects any information that is collected when you use this application.
+				   Information collected when using this application will only be used in accordance with this privacy statement.
+		</TextBlock>
+
+		<TextBlock TextWrapping="WrapWholeWords"
+				   Margin="0,10,0,0"
+				   Style="{ThemeResource BodyTextBlockStyle}">
+			<Bold>What we collect</Bold><LineBreak></LineBreak>Nothing
+		</TextBlock>
+
+		<TextBlock TextWrapping="WrapWholeWords"
+				   Margin="0,10,0,0"
+				   Style="{ThemeResource BodyTextBlockStyle}">
+			<Bold>What we do with the information we gather</Bold><LineBreak></LineBreak>Nothing
+		</TextBlock>
+	</StackPanel>
+</ContentDialog>

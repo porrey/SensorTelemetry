@@ -1,0 +1,26 @@
+﻿<prismUnity:PrismUnityApplication x:Class="Porrey.SensorTelemetry.App"
+								  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+								  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+								  xmlns:local="using:Porrey.SensorTelemetry"
+								  xmlns:converters="using:Porrey.SensorTelemetry.Converters"
+								  xmlns:prismUnity="using:Prism.Unity.Windows"
+								  RequestedTheme="Dark">
+	<Application.Resources>
+		<ResourceDictionary>
+			<x:String x:Key="AppName">Sensor Telemetry</x:String>
+
+			<!-- ***										-->
+			<!-- *** Change the ProgresBar color to White	-->
+			<!-- ***										-->
+			<x:String x:Key="ProgressBarIndeterminateForegroundThemeBrush">White</x:String>
+
+			<!-- ***            -->
+			<!-- *** Converters -->
+			<!-- ***            -->
+			<converters:ValueFormatConverter x:Key="ValueFormatConverter"></converters:ValueFormatConverter>
+			<converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter"></converters:BooleanToVisibilityConverter>
+			<converters:NotBooleanToVisibilityConverter x:Key="NotBooleanToVisibilityConverter"></converters:NotBooleanToVisibilityConverter>
+			<converters:TemperatureConverter x:Key="TemperatureConverter"></converters:TemperatureConverter>
+		</ResourceDictionary>
+	</Application.Resources>
+</prismUnity:PrismUnityApplication>

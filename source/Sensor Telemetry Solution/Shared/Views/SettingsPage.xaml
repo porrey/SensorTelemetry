@@ -1,0 +1,650 @@
+﻿<local:SensorTelemetryPage x:Class="Porrey.SensorTelemetry.Views.SettingsPage"
+						   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+						   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						   xmlns:local="using:Porrey.SensorTelemetry.Views"
+						   xmlns:prism="using:Prism.Windows.Mvvm"
+						   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+						   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+						   NavigationCacheMode="Required"
+						   prism:ViewModelLocator.AutoWireViewModel="True"
+						   mc:Ignorable="d">
+
+	<local:SensorTelemetryPage.Resources>
+		<Style x:Key="SliderStyle"
+			   TargetType="Slider">
+			<Setter Property="Background"
+					Value="#CC4462FF" />
+			<Setter Property="BorderThickness"
+					Value="{ThemeResource SliderBorderThemeThickness}" />
+			<Setter Property="Foreground"
+					Value="#4462FF" />
+			<Setter Property="FontFamily"
+					Value="{ThemeResource ContentControlThemeFontFamily}" />
+			<Setter Property="FontSize"
+					Value="{ThemeResource ControlContentThemeFontSize}" />
+			<Setter Property="ManipulationMode"
+					Value="None" />
+			<Setter Property="UseSystemFocusVisuals"
+					Value="True" />
+			<Setter Property="Template">
+				<Setter.Value>
+					<ControlTemplate TargetType="Slider">
+						<Grid Margin="{TemplateBinding Padding}">
+							<Grid.Resources>
+								<Style x:Key="SliderThumbStyle"
+									   TargetType="Thumb">
+									<Setter Property="BorderThickness"
+											Value="0" />
+									<Setter Property="Background"
+											Value="{ThemeResource SystemControlForegroundAccentBrush}" />
+									<Setter Property="Template">
+										<Setter.Value>
+											<ControlTemplate TargetType="Thumb">
+												<Border BorderBrush="{TemplateBinding BorderBrush}"
+														BorderThickness="{TemplateBinding BorderThickness}"
+														Background="#EE4462FF"
+														CornerRadius="4" />
+											</ControlTemplate>
+										</Setter.Value>
+									</Setter>
+								</Style>
+							</Grid.Resources>
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="*" />
+							</Grid.RowDefinitions>
+							<VisualStateManager.VisualStateGroups>
+								<VisualStateGroup x:Name="CommonStates">
+									<VisualState x:Name="Normal" />
+									<VisualState x:Name="Pressed">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+																		   Storyboard.TargetName="HorizontalThumb">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlHighlightChromeHighBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+																		   Storyboard.TargetName="VerticalThumb">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlHighlightChromeHighBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="Disabled">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Foreground"
+																		   Storyboard.TargetName="HeaderContentPresenter">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="HorizontalDecreaseRect">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="HorizontalTrackRect">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="VerticalDecreaseRect">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="VerticalTrackRect">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+																		   Storyboard.TargetName="HorizontalThumb">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+																		   Storyboard.TargetName="VerticalThumb">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledChromeDisabledHighBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="TopTickBar">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="BottomTickBar">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="LeftTickBar">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="RightTickBar">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlDisabledBaseLowBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+									<VisualState x:Name="PointerOver">
+										<Storyboard>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="HorizontalTrackRect">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlForegroundBaseMediumBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Fill"
+																		   Storyboard.TargetName="VerticalTrackRect">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlForegroundBaseMediumBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+																		   Storyboard.TargetName="HorizontalThumb">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlHighlightChromeAltLowBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+											<ObjectAnimationUsingKeyFrames Storyboard.TargetProperty="Background"
+																		   Storyboard.TargetName="VerticalThumb">
+												<DiscreteObjectKeyFrame KeyTime="0"
+																		Value="{ThemeResource SystemControlHighlightChromeAltLowBrush}" />
+											</ObjectAnimationUsingKeyFrames>
+										</Storyboard>
+									</VisualState>
+								</VisualStateGroup>
+							</VisualStateManager.VisualStateGroups>
+							<ContentPresenter x:Name="HeaderContentPresenter"
+											  ContentTemplate="{TemplateBinding HeaderTemplate}"
+											  Content="{TemplateBinding Header}"
+											  Foreground="{ThemeResource SystemControlForegroundBaseHighBrush}"
+											  FontWeight="{ThemeResource SliderHeaderThemeFontWeight}"
+											  Margin="{ThemeResource SliderHeaderThemeMargin}"
+											  TextWrapping="Wrap" />
+							<Grid x:Name="SliderContainer"
+								  Background="Transparent"
+								  Control.IsTemplateFocusTarget="True"
+								  Grid.Row="1">
+								<Grid x:Name="HorizontalTemplate"
+									  MinHeight="44">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="*" />
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="18" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="18" />
+									</Grid.RowDefinitions>
+									<Rectangle x:Name="HorizontalTrackRect"
+											   Grid.ColumnSpan="3"
+											   Fill="{TemplateBinding Background}"
+											   Height="{ThemeResource SliderTrackThemeHeight}"
+											   Grid.Row="1" />
+									<Rectangle x:Name="HorizontalDecreaseRect"
+											   Fill="{TemplateBinding Foreground}"
+											   Grid.Row="1" />
+									<TickBar x:Name="TopTickBar"
+											 Grid.ColumnSpan="3"
+											 Fill="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+											 Height="{ThemeResource SliderOutsideTickBarThemeHeight}"
+											 Margin="0,0,0,4"
+											 Visibility="Collapsed"
+											 VerticalAlignment="Bottom" />
+									<TickBar x:Name="HorizontalInlineTickBar"
+											 Grid.ColumnSpan="3"
+											 Fill="{ThemeResource SystemControlBackgroundAltHighBrush}"
+											 Height="{ThemeResource SliderTrackThemeHeight}"
+											 Grid.Row="1"
+											 Visibility="Collapsed" />
+									<TickBar x:Name="BottomTickBar"
+											 Grid.ColumnSpan="3"
+											 Fill="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+											 Height="{ThemeResource SliderOutsideTickBarThemeHeight}"
+											 Margin="0,4,0,0"
+											 Grid.Row="2"
+											 Visibility="Collapsed"
+											 VerticalAlignment="Top" />
+									<Thumb x:Name="HorizontalThumb"
+										   AutomationProperties.AccessibilityView="Raw"
+										   Background="{ThemeResource SystemControlForegroundAccentBrush}"
+										   Grid.Column="1"
+										   DataContext="{TemplateBinding Value}"
+										   Height="8"
+										   Grid.Row="0"
+										   Grid.RowSpan="3"
+										   Style="{StaticResource SliderThumbStyle}"
+										   Width="24" />
+								</Grid>
+								<Grid x:Name="VerticalTemplate"
+									  MinWidth="44"
+									  Visibility="Collapsed">
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="18" />
+										<ColumnDefinition Width="Auto" />
+										<ColumnDefinition Width="18" />
+									</Grid.ColumnDefinitions>
+									<Grid.RowDefinitions>
+										<RowDefinition Height="*" />
+										<RowDefinition Height="Auto" />
+										<RowDefinition Height="Auto" />
+									</Grid.RowDefinitions>
+									<Rectangle x:Name="VerticalTrackRect"
+											   Grid.Column="1"
+											   Fill="{TemplateBinding Background}"
+											   Grid.RowSpan="3"
+											   Width="{ThemeResource SliderTrackThemeHeight}" />
+									<Rectangle x:Name="VerticalDecreaseRect"
+											   Grid.Column="1"
+											   Fill="{TemplateBinding Foreground}"
+											   Grid.Row="2" />
+									<TickBar x:Name="LeftTickBar"
+											 Fill="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+											 HorizontalAlignment="Right"
+											 Margin="0,0,4,0"
+											 Grid.RowSpan="3"
+											 Visibility="Collapsed"
+											 Width="{ThemeResource SliderOutsideTickBarThemeHeight}" />
+									<TickBar x:Name="VerticalInlineTickBar"
+											 Grid.Column="1"
+											 Fill="{ThemeResource SystemControlBackgroundAltHighBrush}"
+											 Grid.RowSpan="3"
+											 Visibility="Collapsed"
+											 Width="{ThemeResource SliderTrackThemeHeight}" />
+									<TickBar x:Name="RightTickBar"
+											 Grid.Column="2"
+											 Fill="{ThemeResource SystemControlForegroundBaseMediumLowBrush}"
+											 HorizontalAlignment="Left"
+											 Margin="4,0,0,0"
+											 Grid.RowSpan="3"
+											 Visibility="Collapsed"
+											 Width="{ThemeResource SliderOutsideTickBarThemeHeight}" />
+									<Thumb x:Name="VerticalThumb"
+										   AutomationProperties.AccessibilityView="Raw"
+										   Background="{ThemeResource SystemControlForegroundAccentBrush}"
+										   Grid.ColumnSpan="3"
+										   Grid.Column="0"
+										   DataContext="{TemplateBinding Value}"
+										   Height="24"
+										   Grid.Row="1"
+										   Style="{StaticResource SliderThumbStyle}"
+										   Width="8" />
+								</Grid>
+							</Grid>
+						</Grid>
+					</ControlTemplate>
+				</Setter.Value>
+			</Setter>
+		</Style>
+	</local:SensorTelemetryPage.Resources>
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="100" />
+			<RowDefinition Height="40" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!-- Page Header -->
+		<Grid Grid.Row="0"
+			  Background="#4462FF">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="250" />
+			</Grid.ColumnDefinitions>
+
+			<StackPanel Grid.Column="0"
+						Orientation="Horizontal">
+				<Image Source="ms-appx:///Assets/Sensor-Telemetry.png"
+					   Margin="25,10,10,10" />
+				<TextBlock Text="{StaticResource AppName}"
+						   Margin="20,0,0,0"
+						   VerticalAlignment="Center"
+						   Style="{ThemeResource HeaderTextBlockStyle}" />
+			</StackPanel>
+		</Grid>
+
+		<!-- Content Header -->
+		<Grid Grid.Row="1"
+			  Background="DarkOrange">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Buttons -->
+			<StackPanel Grid.Column="0"
+						Orientation="Horizontal">
+				<!-- Menu Button -->
+				<Button x:Name="menuButton"
+						x:Uid="menuButton"
+						Margin="5,5,5,5"
+						Click="MenuButton_Click">
+					<Button.Content>
+						<FontIcon Glyph="&#xE700;" />
+					</Button.Content>
+				</Button>
+
+				<!-- Back Button -->
+				<Button x:Name="backButton"
+						x:Uid="backButton"
+						Grid.Column="0"
+						Margin="5,5,5,5"
+						Command="{x:Bind GoBackCommand}">
+					<Button.Content>
+						<SymbolIcon Symbol="Back" />
+					</Button.Content>
+				</Button>
+			</StackPanel>
+
+			<!-- Page Name -->
+			<TextBlock Grid.Column="1"
+					   Text="{Binding PageName}"
+					   Margin="20,0,0,0"
+					   VerticalAlignment="Center"
+					   FontSize="28"
+					   Style="{ThemeResource SubheaderTextBlockStyle}" />
+		</Grid>
+
+		<!-- Content -->
+		<SplitView x:Name="menuSplitView"
+				   x:Uid="menuSplitView"
+				   Grid.Row="2">
+
+			<!-- Menu -->
+			<SplitView.Pane>
+				<Grid>
+					<StackPanel Orientation="Vertical">
+						<!-- Home -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Command="{Binding GoHomeCommand}"
+											 Foreground="White"
+											 Click="MenuItem_Click">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="Home"
+													Margin="5,5,5,5" />
+										<TextBlock Text="Home"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- Separator-->
+						<Rectangle Height="1"
+								   Margin="10,5,10,5"
+								   Fill="White" />
+
+						<!-- Debug Console -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Command="{Binding DebugConsoleCommand}"
+											 Foreground="White"
+											 Click="MenuItem_Click">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<FontIcon Glyph="&#xE754;"
+												  Margin="5,5,5,5" />
+										<TextBlock Text="Debug Console"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- Separator-->
+						<Rectangle Height="1"
+								   Margin="10,5,10,5"
+								   Fill="White" />
+
+						<!-- Settings -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Command="{Binding ViewSettingsCommand}"
+											 Foreground="White"
+											 Click="MenuItem_Click">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="Setting"
+													Margin="5,5,5,5" />
+										<TextBlock Text="Settings"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- Run LED Test -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Command="{Binding RunLedTestCommand}"
+											 Foreground="White"
+											 Click="MenuItem_Click">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<FontIcon Glyph="&#xE9A9;"
+												  Margin="5,5,5,5" />
+										<TextBlock Text="Run LED Test"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- Privacy -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Click="PrivacyButton_Click"
+											 Foreground="White">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="ProtectedDocument"
+													Margin="5,5,5,5" />
+										<TextBlock Text="Privacy"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- About -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Click="AboutButton_Click"
+											 Foreground="White">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="ContactInfo"
+													Margin="5,5,5,5" />
+										<TextBlock Text="About"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+					</StackPanel>
+
+					<!-- Close Menu Button -->
+					<Button Margin="10,10,10,10"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Bottom"
+							Click="MenuItem_Click">
+						<Button.Content>
+							<FontIcon Glyph="&#xE00E;" />
+						</Button.Content>
+					</Button>
+				</Grid>
+			</SplitView.Pane>
+
+			<SplitView.Content>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="*" />
+						<RowDefinition Height="130" />
+					</Grid.RowDefinitions>
+
+					<StackPanel Grid.Row="0"
+								Orientation="Vertical">
+						<TextBlock Text="Alert Thresholds"
+								   Style="{ThemeResource TitleTextBlockStyle}"
+								   Margin="10,10,10,10" />
+
+						<!-- Thresholds -->
+						<Grid  Margin="150,0,150,0"
+							   Visibility="{Binding IsReadOnly, Converter={StaticResource NotBooleanToVisibilityConverter}}">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="40" />
+								<RowDefinition Height="1*" />
+								<RowDefinition Height="40" />
+								<RowDefinition Height="1*" />
+								<RowDefinition Height="40" />
+								<RowDefinition Height="1*" />
+							</Grid.RowDefinitions>
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="50" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
+
+							<Rectangle Grid.Column="0"
+									   Grid.Row="0"
+									   Grid.RowSpan="2"
+									   Fill="Yellow"
+									   Margin="0,15,35,15"
+									   Visibility="{Binding IsCritical, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+							<TextBlock Grid.Row="0"
+									   Grid.Column="1"
+									   Text="Critical Temperature Threshold"
+									   Style="{ThemeResource TitleTextBlockStyle}"
+									   VerticalAlignment="Center"
+									   HorizontalAlignment="Left" />
+
+							<StackPanel Grid.Row="1"
+										Grid.Column="1"
+										Orientation="Vertical">
+								<TextBlock Text="{Binding CriticalTemperatureThreshold, Converter={StaticResource TemperatureConverter}}"
+										   Style="{ThemeResource TitleTextBlockStyle}"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center" />
+
+								<Slider x:Name="criticalTemperatureThresholdSlider"
+										Value="{Binding CriticalTemperatureThreshold, Mode=TwoWay}"
+										ThumbToolTipValueConverter="{StaticResource TemperatureConverter}"
+										Minimum="-20"
+										Maximum="100"
+										IsEnabled="{Binding IsEnabled}"
+										Style="{StaticResource SliderStyle}" />
+							</StackPanel>
+
+							<Rectangle Grid.Column="0"
+									   Grid.Row="2"
+									   Grid.RowSpan="2"
+									   Fill="Red"
+									   Margin="0,15,35,15"
+									   Visibility="{Binding IsAboveThreshold, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+							<TextBlock Grid.Row="2"
+									   Grid.Column="1"
+									   Text="Upper Temperature Threshold"
+									   Style="{ThemeResource TitleTextBlockStyle}"
+									   VerticalAlignment="Center"
+									   HorizontalAlignment="Left" />
+
+							<StackPanel Grid.Row="3"
+										Grid.Column="1"
+										Orientation="Vertical">
+								<TextBlock Text="{Binding UpperTemperatureThreshold, Converter={StaticResource TemperatureConverter}}"
+										   Style="{ThemeResource TitleTextBlockStyle}"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center" />
+
+								<Slider x:Name="upperTemperatureThresholdSlider"
+										Value="{Binding UpperTemperatureThreshold, Mode=TwoWay}"
+										ThumbToolTipValueConverter="{StaticResource TemperatureConverter}"
+										Minimum="-20"
+										Maximum="100"
+										IsEnabled="{Binding IsEnabled}"
+										Style="{StaticResource SliderStyle}" />
+							</StackPanel>
+
+							<Rectangle Grid.Column="0"
+									   Grid.Row="4"
+									   Grid.RowSpan="2"
+									   Fill="Blue"
+									   Margin="0,15,35,15"
+									   Visibility="{Binding IsBelowThreshold, Converter={StaticResource BooleanToVisibilityConverter}}" />
+
+							<TextBlock Grid.Row="4"
+									   Grid.Column="1"
+									   Text="Lower Temperature Threshold"
+									   Style="{ThemeResource TitleTextBlockStyle}"
+									   VerticalAlignment="Center"
+									   HorizontalAlignment="Left" />
+
+							<StackPanel Grid.Row="5"
+										Grid.Column="1"
+										Orientation="Vertical">
+								<TextBlock Text="{Binding LowerTemperatureThreshold, Converter={StaticResource TemperatureConverter}}"
+										   Style="{ThemeResource TitleTextBlockStyle}"
+										   VerticalAlignment="Center"
+										   HorizontalAlignment="Center" />
+
+								<Slider x:Name="lowerTemperatureThresholdSlider"
+										Value="{Binding LowerTemperatureThreshold, Mode=TwoWay}"
+										ThumbToolTipValueConverter="{StaticResource TemperatureConverter}"
+										Minimum="-20"
+										Maximum="100"
+										IsEnabled="{Binding IsEnabled}"
+										Style="{StaticResource SliderStyle}" />
+							</StackPanel>
+						</Grid>
+					</StackPanel>
+
+					<!-- Alert Reset Mode -->
+					<StackPanel Grid.Row="1"
+								Orientation="Vertical">
+						<TextBlock Text="Auto Alert Mode"
+								   Style="{ThemeResource TitleTextBlockStyle}"
+								   Margin="10,10,10,10" />
+						<ToggleSwitch IsEnabled="{Binding IsEnabled}"
+									  Margin="150,15,150,0"
+									  IsOn="{Binding AutoAlertResetMode}" />
+					</StackPanel>
+				</Grid>
+			</SplitView.Content>
+		</SplitView>
+
+		<!-- Time Display -->
+		<Grid>
+			<TextBlock Text="{Binding CurrentTime, Converter={StaticResource ValueFormatConverter}, ConverterParameter='[0:h:mm:ss tt]'}"
+					   VerticalAlignment="Bottom"
+					   HorizontalAlignment="Center"
+					   FontSize="10"
+					   FontWeight="ExtraLight"
+					   Margin="0,0,0,5" />
+		</Grid>
+	</Grid>
+
+	<local:SensorTelemetryPage.BottomAppBar>
+		<CommandBar Background="Transparent"
+					IsOpen="False">
+			<CommandBar.SecondaryCommands>
+				<!-- Exit -->
+				<AppBarButton x:Uid="exitAppBarButton"
+							  x:Name="exitAppBarButton"
+							  Label="Exit"
+							  Margin="10,0,10,0"
+							  Command="{Binding ExitCommand}">
+					<AppBarButton.Icon>
+						<FontIcon Glyph="&#xE7E8;" />
+					</AppBarButton.Icon>
+				</AppBarButton>
+			</CommandBar.SecondaryCommands>
+		</CommandBar>
+	</local:SensorTelemetryPage.BottomAppBar>
+</local:SensorTelemetryPage>

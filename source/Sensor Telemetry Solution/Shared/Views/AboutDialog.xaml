@@ -1,0 +1,22 @@
+﻿<ContentDialog x:Class="Porrey.SensorTelemetry.Views.AboutDialog"
+			   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+			   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			   xmlns:local="using:Porrey.SensorTelemetry.Views"
+			   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+			   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			   mc:Ignorable="d"
+			   Title="About"
+			   PrimaryButtonText="Done">
+
+	<StackPanel>
+		<TextBlock TextWrapping="WrapWholeWords"
+				   Margin="0,10,0,0"
+				   Style="{ThemeResource BodyTextBlockStyle}">
+			   This application demonstrates <Bold>Cloud</Bold> connectivity for a <Bold>Windows 10 IoT</Bold> application by monitoring the temperature on a <Italic>MCP9808</Italic> and sending telemetry events to <Bold>Windows Azure</Bold> and to a <Bold>SignalR</Bold> hub.</TextBlock>
+		
+		<TextBlock TextWrapping="WrapWholeWords"
+				   Margin="0,10,0,0"
+				   Style="{ThemeResource BodyTextBlockStyle}">
+			   This application can also run from another WIndows 10 computer and act as the client responding to the events on the SignalR hub.</TextBlock>
+	</StackPanel>
+</ContentDialog>

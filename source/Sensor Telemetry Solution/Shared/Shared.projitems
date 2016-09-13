@@ -1,0 +1,129 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>26014cb1-475f-4f4e-b05d-b5ae6aa0110d</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)Common\ApplicationSensorReadingExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\EventRelayMap.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\MagicValues.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\SystemExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Common\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\BooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\NotBooleanToVisibilityConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\TemperatureConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Converters\ValueFormatConverter.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IApplicationInstanceIdentity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IApplicationSettingsRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IBackgroundService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IDebugConsoleRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IGpioPinConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IIotHubConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IMobileServicesConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\IRelayProvider.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Interfaces\ITemperatureRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\ApplicationInstanceIdentity.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\GpioPinConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\IotHubConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MobileServicesConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Models\MobileServiceSensorReading.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Relay Providers\NullRelayProviderReceiver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Relay Providers\NullRelayProviderSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Relay Providers\SignalrRelayProviderReceiver.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Relay Providers\SignalrRelayProviderSender.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\ApplicationSettingsRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\Mcp9808TemperatureRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Repositories\NullTemperatureRepository.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\AlertPinMonitoringService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\DebugConsoleService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\LedService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\NotificationRelayService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\PushButtonMonitoringService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\TelemetryService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Services\TimerService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)UnityConfiguration.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DebugConsolePageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HistoryPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\SettingsPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\StartPageViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\AboutDialog.xaml.cs">
+      <DependentUpon>AboutDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\DebugConsolePage.xaml.cs">
+      <DependentUpon>DebugConsolePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\HistoryPage.xaml.cs">
+      <DependentUpon>HistoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\PrivacyDialog.xaml.cs">
+      <DependentUpon>PrivacyDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SensorTelemetryPage.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="$(MSBuildThisFileDirectory)Views\StartPage.xaml.cs">
+      <DependentUpon>StartPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="$(MSBuildThisFileDirectory)Views\AboutDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\DebugConsolePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\HistoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\PrivacyDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="$(MSBuildThisFileDirectory)Views\StartPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="$(MSBuildThisFileDirectory)Assets\alert-8.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\alert-icon-red.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Error.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Information.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\LockScreenLogo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Logo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Sensor-Telemetry.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\SplashScreen.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Square150x150Logo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Square44x44Logo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\StoreLogo.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Warning.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\WideLogo.scale-200.png" />
+  </ItemGroup>
+</Project>

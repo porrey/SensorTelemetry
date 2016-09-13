@@ -1,0 +1,369 @@
+﻿<local:SensorTelemetryPage x:Class="Porrey.SensorTelemetry.Views.DebugConsolePage"
+						   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+						   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+						   xmlns:local="using:Porrey.SensorTelemetry.Views"
+						   xmlns:prism="using:Prism.Windows.Mvvm"
+						   xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+						   xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+						   NavigationCacheMode="Required"
+						   prism:ViewModelLocator.AutoWireViewModel="True"
+						   mc:Ignorable="d">
+
+	<Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="100" />
+			<RowDefinition Height="40" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+
+		<!-- Page Header -->
+		<Grid Grid.Row="0"
+			  Background="#4462FF">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="250" />
+			</Grid.ColumnDefinitions>
+
+			<StackPanel Grid.Column="0"
+						Orientation="Horizontal">
+				<Image Source="ms-appx:///Assets/Sensor-Telemetry.png"
+					   Margin="25,10,10,10" />
+				<TextBlock Text="{StaticResource AppName}"
+						   Margin="20,0,0,0"
+						   VerticalAlignment="Center"
+						   Style="{ThemeResource HeaderTextBlockStyle}" />
+			</StackPanel>
+		</Grid>
+
+		<!-- Content Header -->
+		<Grid Grid.Row="1"
+			  Background="DarkOrange">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
+
+			<!-- Buttons -->
+			<StackPanel Grid.Column="0"
+						Orientation="Horizontal">
+				<!-- Menu Button -->
+				<Button x:Name="menuButton"
+						x:Uid="menuButton"
+						Margin="5,5,5,5"
+						Click="MenuButton_Click">
+					<Button.Content>
+						<FontIcon Glyph="&#xE700;" />
+					</Button.Content>
+				</Button>
+
+				<!-- Back Button -->
+				<Button x:Name="backButton"
+						x:Uid="backButton"
+						Grid.Column="0"
+						Margin="5,5,5,5"
+						Command="{x:Bind GoBackCommand}">
+					<Button.Content>
+						<SymbolIcon Symbol="Back" />
+					</Button.Content>
+				</Button>
+			</StackPanel>
+
+			<!-- Page Name -->
+			<TextBlock Grid.Column="1"
+					   Text="{Binding PageName}"
+					   Margin="20,0,0,0"
+					   VerticalAlignment="Center"
+					   FontSize="28"
+					   Style="{ThemeResource SubheaderTextBlockStyle}" />
+
+			<!-- Items Count -->
+			<StackPanel Grid.Column="2"
+						Orientation="Horizontal">
+				<TextBlock Text="Total Items:"
+						   Margin="10,0,10,0"
+						   Style="{ThemeResource SubtitleTextBlockStyle}"
+						   HorizontalAlignment="Left"
+						   VerticalAlignment="Center" />
+
+				<TextBlock Text="{Binding DebugConsoleProvider.Items.Count, Converter={StaticResource ValueFormatConverter}, ConverterParameter='[0:#,##0]'}"
+						   Margin="10,0,10,0"
+						   Style="{ThemeResource SubtitleTextBlockStyle}"
+						   HorizontalAlignment="Left"
+						   VerticalAlignment="Center" />
+			</StackPanel>
+		</Grid>
+
+		<!-- Split View/Content -->
+		<SplitView x:Name="menuSplitView"
+				   x:Uid="menuSplitView"
+				   Grid.Row="2">
+
+			<!-- Menu -->
+			<SplitView.Pane>
+				<Grid>
+					<StackPanel Orientation="Vertical">
+						<!-- Home -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Command="{Binding GoHomeCommand}"
+											 Foreground="White"
+											 Click="MenuItem_Click">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="Home"
+													Margin="5,5,5,5" />
+										<TextBlock Text="Home"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- Separator-->
+						<Rectangle Height="1"
+								   Margin="10,5,10,5"
+								   Fill="White" />
+
+						<!-- Settings -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Command="{Binding ViewSettingsCommand}"
+											 Foreground="White"
+											 Click="MenuItem_Click">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="Setting"
+													Margin="5,5,5,5" />
+										<TextBlock Text="Settings"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- Run LED Test -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Command="{Binding RunLedTestCommand}"
+											 Foreground="White"
+											 Click="MenuItem_Click">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<FontIcon Glyph="&#xE9A9;"
+												  Margin="5,5,5,5" />
+										<TextBlock Text="Run LED Test"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- Privacy -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Click="PrivacyButton_Click"
+											 Foreground="White">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="ProtectedDocument"
+													Margin="5,5,5,5" />
+										<TextBlock Text="Privacy"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+
+						<!-- About -->
+						<StackPanel Margin="10,10,10,10">
+							<HyperlinkButton Click="AboutButton_Click"
+											 Foreground="White">
+								<HyperlinkButton.Content>
+									<StackPanel Orientation="Horizontal">
+										<SymbolIcon Symbol="ContactInfo"
+													Margin="5,5,5,5" />
+										<TextBlock Text="About"
+												   VerticalAlignment="Center"
+												   Margin="10,0,10,0" />
+									</StackPanel>
+								</HyperlinkButton.Content>
+							</HyperlinkButton>
+						</StackPanel>
+					</StackPanel>
+
+					<!-- Close Menu Button -->
+					<Button Margin="10,10,10,10"
+							HorizontalAlignment="Left"
+							VerticalAlignment="Bottom"
+							Click="MenuItem_Click">
+						<Button.Content>
+							<FontIcon Glyph="&#xE00E;" />
+						</Button.Content>
+					</Button>
+				</Grid>
+			</SplitView.Pane>
+
+			<!-- Page Content -->
+			<SplitView.Content>
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition Height="50" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
+
+					<Grid Grid.Row="0"
+						  Margin="10,10,10,10">
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="75" />
+							<ColumnDefinition Width="200" />
+							<ColumnDefinition Width="1*" />
+							<ColumnDefinition Width="200" />
+						</Grid.ColumnDefinitions>
+
+						<TextBlock Grid.Column="0"
+								   Text="Event Type"
+								   Style="{ThemeResource CaptionTextBlockStyle}"
+								   HorizontalAlignment="Left"
+								   VerticalAlignment="Center"
+								   Margin="0,0,10,0" />
+
+						<TextBlock Grid.Column="1"
+								   Text="Title"
+								   Style="{ThemeResource CaptionTextBlockStyle}"
+								   HorizontalAlignment="Left"
+								   VerticalAlignment="Center"
+								   Margin="0,0,10,0" />
+
+						<TextBlock Grid.Column="2"
+								   Text="Description"
+								   Style="{ThemeResource CaptionTextBlockStyle}"
+								   HorizontalAlignment="Left"
+								   VerticalAlignment="Center"
+								   Margin="0,0,10,0" />
+
+						<TextBlock Grid.Column="3"
+								   Text="Time Stamp"
+								   Style="{ThemeResource CaptionTextBlockStyle}"
+								   HorizontalAlignment="Left"
+								   VerticalAlignment="Center"
+								   Margin="0,0,10,0" />
+					</Grid>
+
+					<!-- Data -->
+					<ListView Grid.Row="1"
+							  ItemsSource="{Binding DebugConsoleProvider.Items}">
+						<ListView.ItemContainerStyle>
+							<Style TargetType="ListViewItem">
+								<Setter Property="HorizontalContentAlignment"
+										Value="Stretch" />
+							</Style>
+						</ListView.ItemContainerStyle>
+						<ListView.ItemTemplate>
+							<DataTemplate>
+								<Grid>
+									<Grid.ColumnDefinitions>
+										<ColumnDefinition Width="75" />
+										<ColumnDefinition Width="200" />
+										<ColumnDefinition Width="1*" />
+										<ColumnDefinition Width="200" />
+									</Grid.ColumnDefinitions>
+
+									<Image Grid.Column="0"
+										   Source="{Binding EventType,Converter={StaticResource ValueFormatConverter},ConverterParameter='/Assets/[0].png'}"
+										   Width="24"
+										   Height="24"
+										   HorizontalAlignment="Left"
+										   VerticalAlignment="Center"
+										   Margin="0,0,10,0" />
+
+									<TextBlock Grid.Column="1"
+											   Text="{Binding Title}"
+											   Style="{ThemeResource CaptionTextBlockStyle}"
+											   HorizontalAlignment="Left"
+											   VerticalAlignment="Center"
+											   Margin="0,0,10,0"
+											   TextTrimming="WordEllipsis"
+											   TextWrapping="NoWrap" />
+
+									<TextBlock Grid.Column="2"
+											   Text="{Binding Description}"
+											   Style="{ThemeResource CaptionTextBlockStyle}"
+											   HorizontalAlignment="Left"
+											   VerticalAlignment="Center"
+											   Margin="0,0,10,0"
+											   TextTrimming="WordEllipsis"
+											   TextWrapping="NoWrap" />
+
+									<TextBlock Grid.Column="3"
+											   Text="{Binding TimestampLocal}"
+											   Style="{ThemeResource CaptionTextBlockStyle}"
+											   HorizontalAlignment="Left"
+											   VerticalAlignment="Center"
+											   Margin="0,0,10,0"
+											   TextTrimming="WordEllipsis"
+											   TextWrapping="NoWrap" />
+								</Grid>
+							</DataTemplate>
+						</ListView.ItemTemplate>
+					</ListView>
+				</Grid>
+			</SplitView.Content>
+		</SplitView>
+
+		<!-- Time Display -->
+		<Grid>
+			<TextBlock Text="{Binding CurrentTime, Converter={StaticResource ValueFormatConverter}, ConverterParameter='[0:h:mm:ss tt]'}"
+					   VerticalAlignment="Bottom"
+					   HorizontalAlignment="Center"
+					   FontSize="10"
+					   FontWeight="ExtraLight"
+					   Margin="0,0,0,5" />
+		</Grid>
+	</Grid>
+
+	<local:SensorTelemetryPage.BottomAppBar>
+		<CommandBar Background="Transparent"
+					IsOpen="False">
+
+			<!-- Refresh Button -->
+			<AppBarButton x:Uid="sendTestAppBarButton"
+						  x:Name="sendTestAppBarButton"
+						  Label="Send Test"
+						  Margin="10,0,10,0"
+						  Icon="Send"
+						  Command="{Binding SendTestCommand}" />
+
+			<AppBarSeparator />
+
+			<!-- Refresh Button -->
+			<AppBarButton x:Uid="refreshAppBarButton"
+						  x:Name="refreshAppBarButton"
+						  Label="Refresh"
+						  Margin="10,0,10,0"
+						  Icon="Refresh"
+						  Command="{Binding RefreshCommand}" />
+
+			<!-- Refresh Button -->
+			<AppBarButton x:Uid="clearAppBarButton"
+						  x:Name="clearAppBarButton"
+						  Label="Clear"
+						  Margin="10,0,10,0"
+						  Icon="Clear"
+						  Command="{Binding ClearCommand}" />
+
+			<CommandBar.SecondaryCommands>
+				<!-- Exit -->
+				<AppBarButton x:Uid="exitAppBarButton"
+							  x:Name="exitAppBarButton"
+							  Label="Exit"
+							  Margin="10,0,10,0"
+							  Command="{Binding ExitCommand}">
+					<AppBarButton.Icon>
+						<FontIcon Glyph="&#xE7E8;" />
+					</AppBarButton.Icon>
+				</AppBarButton>
+			</CommandBar.SecondaryCommands>
+		</CommandBar>
+	</local:SensorTelemetryPage.BottomAppBar>
+</local:SensorTelemetryPage>
