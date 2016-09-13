@@ -48,7 +48,7 @@ namespace Porrey.SensorTelemetry
 			// ***
 			IIotHubConfiguration iotHubConfiguration = new IotHubConfiguration()
 			{
-				ConnectionString = "{ YOUR CONNECTION STRING HERE}",
+				ConnectionString = "{YOUR CONNECTION STRING HERE}",
 				DeviceId = "{YOUR DEVICE ID HERE}"
 			};
 			this.Container.RegisterInstance<IIotHubConfiguration>(iotHubConfiguration, new ContainerControlledLifetimeManager());
