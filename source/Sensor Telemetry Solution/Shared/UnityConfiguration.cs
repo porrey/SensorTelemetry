@@ -49,8 +49,7 @@ namespace Porrey.SensorTelemetry
 			// ***
 			IMobileServicesConfiguration mobileServicesConfiguration = new MobileServicesConfiguration()
 			{
-				Url = "http://sensortelemetry.azurewebsites.net/"
-				//Url = "{ YOUR MOBILE SERVICES URL HERE}",
+				Url = "{ YOUR MOBILE SERVICES URL HERE}",
 			};
 			container.RegisterInstance<IMobileServicesConfiguration>(mobileServicesConfiguration, new ContainerControlledLifetimeManager());
 
