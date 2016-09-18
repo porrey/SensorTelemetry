@@ -28,6 +28,7 @@ using Prism.Events;
 using Prism.Windows.AppModel;
 using Prism.Windows.Navigation;
 using Windows.ApplicationModel.Resources;
+using ppatierno.AzureSBLite.Messaging;
 
 namespace Porrey.SensorTelemetry
 {
@@ -49,9 +50,20 @@ namespace Porrey.SensorTelemetry
 			// ***
 			IMobileServicesConfiguration mobileServicesConfiguration = new MobileServicesConfiguration()
 			{
-				Url = "{YOUR MOBILE SERVICES URL HERE}",
+				Url = "{YOUR MOBILE SERVICES URL HERE}"
 			};
 			container.RegisterInstance<IMobileServicesConfiguration>(mobileServicesConfiguration, new ContainerControlledLifetimeManager());
+
+			// ***
+			// *** Set the mobile services configuration
+			// ***
+			IServiceBusConfiguration serviceBusConfiguration = new ServiceBusConfiguration()
+			{
+				ConnectionString = "{YOUR MOBILE SERVICES URL HERE}",
+				QueueName = "{YOUR EVENT HUB NAME HERE}",
+				DefaultTransportType = TransportType.Amqp
+			};
+			container.RegisterInstance<IServiceBusConfiguration>(serviceBusConfiguration, new ContainerControlledLifetimeManager());
 
 			// ***
 			// *** All temperature readings will pass through SignalR.

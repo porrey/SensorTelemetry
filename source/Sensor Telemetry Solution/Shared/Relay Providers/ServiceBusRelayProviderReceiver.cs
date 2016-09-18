@@ -1,19 +1,22 @@
 ﻿using System;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.Azure.Devices.Client;
+using Microsoft.AspNet.SignalR.Client;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using Porrey.SensorTelemetry.Interfaces;
+using ppatierno.AzureSBLite.Messaging;
 
 namespace Porrey.SensorTelemetry.Relays
 {
-	public class IotHubRelayProviderReceiver<T> : IRelayProviderReceiver<T>
+	public class ServiceBusRelayProviderReceiver<T> : IRelayProviderReceiver<T>
 	{
 		[Dependency]
-		protected IIotHubConfiguration IotHubConfiguration { get; set; }
-		protected DeviceClient DeviceClient { get; set; }
+		protected IServiceBusConfiguration ServiceBusConfiguration { get; set; }
+		protected MessagingFactory Factory { get; set; }
+		protected QueueClient Client { get; set; }
 		protected IRelayProviderCallbackDelegate<T> Callback { get; set; }
 		protected CancellationTokenSource CancellationTokenSource { get; set; }
 
@@ -25,14 +28,16 @@ namespace Porrey.SensorTelemetry.Relays
 			this.CancellationTokenSource = new CancellationTokenSource();
 
 			// ***
-			// *** Create the device client.
+			// *** Create the client.
 			// ***
-			this.DeviceClient = DeviceClient.CreateFromConnectionString(this.IotHubConfiguration.ConnectionString);
+			this.Factory = MessagingFactory.CreateFromConnectionString(this.ServiceBusConfiguration.ConnectionString);
+			this.Client = this.Factory.CreateQueueClient(this.ServiceBusConfiguration.QueueName);
 
 			// ***
 			// *** Start receiving messages...
 			// ***
-			this.ReceiveMessages(this.DeviceClient, this.CancellationTokenSource.Token);
+			this.ReceiveMessages(this.Client, this.CancellationTokenSource.Token);
+
 			return Task.FromResult(0);
 		}
 
@@ -41,39 +46,33 @@ namespace Porrey.SensorTelemetry.Relays
 			this.Callback = callback;
 		}
 
-		protected Task ReceiveMessages(DeviceClient client,  CancellationToken token)
+		protected Task ReceiveMessages(QueueClient client, CancellationToken token)
 		{
-			return Task.Factory.StartNew(async () =>
+			return Task.Factory.StartNew(() =>
 			{
 				// ***
 				// *** Loop until canceled.
 				// ***
 				while (!token.IsCancellationRequested)
 				{
-					// ***
-					// *** Wait to receive the next message.
-					// ***
-					var item = await client.ReceiveAsync();
-
-					// ***
-					// *** The item is null if a timeout occurs while waiting.
-					// ***
-					if (item != null)
+					try
 					{
 						// ***
-						// *** Convert item to a Message instance.
+						// *** Wait for a message.
 						// ***
-						Message hubMessage = item as Message;
+						BrokeredMessage brokeredMessage = client.Receive();
 
-						// ***
-						// *** Check to ensure we have a Message instance.
-						// ***
-						if (hubMessage != null)
+						if (brokeredMessage != null)
 						{
 							// ***
-							// *** Get the data from the message and convert it to a string.
+							// *** Complete the receive.
 							// ***
-							string json = Encoding.UTF8.GetString(hubMessage.GetBytes());
+							brokeredMessage.Complete();
+
+							// ***
+							// *** Get the JSON body of the message.
+							// ***
+							var json = Encoding.UTF8.GetString(brokeredMessage.GetBytes());
 
 							// ***
 							// *** Convert the JSON to an instance of the object it represents.
@@ -86,13 +85,14 @@ namespace Porrey.SensorTelemetry.Relays
 							this.Callback?.Invoke(message);
 						}
 					}
-
-					await Task.Delay(1000);
+					catch
+					{
+					}
 				}
 			});
 		}
 
-		public async void Dispose()
+		public void Dispose()
 		{
 			// ***
 			// *** Cancel the background task that monitors 
@@ -101,18 +101,22 @@ namespace Porrey.SensorTelemetry.Relays
 			this.CancellationTokenSource.Cancel();
 
 			// ***
-			// *** Release the Device Client.
+			// *** Release the QueueClient.
 			// ***
-			if (this.DeviceClient != null)
+			if (this.Client != null)
 			{
-				await this.DeviceClient.CloseAsync();
-				this.DeviceClient = null;
+				this.Client.Close();
+				this.Client = null;
 			}
 
 			// ***
-			// *** Release the Callback.
+			// *** Release the MessagingFactory.
 			// ***
-			this.Callback = null;
+			if (this.Factory != null)
+			{
+				this.Factory.Close();
+				this.Factory = null;
+			}
 		}
 	}
 }
