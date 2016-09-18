@@ -68,8 +68,8 @@ namespace Porrey.SensorTelemetry
 			// ***
 			// *** All temperature readings will pass through SignalR.
 			// ***
-			container.RegisterType<IRelayProviderSender<TemperatureChangedEventArgs>, ServiceBusRelayProviderSender<TemperatureChangedEventArgs>>(new ContainerControlledLifetimeManager());
-			container.RegisterType<IRelayProviderReceiver<TemperatureChangedEventArgs>, ServiceBusRelayProviderReceiver<TemperatureChangedEventArgs>>(new ContainerControlledLifetimeManager());
+			container.RegisterType<IRelayProviderSender<TemperatureChangedEventArgs>, SignalrRelayProviderSender<TemperatureChangedEventArgs>>(new ContainerControlledLifetimeManager());
+			container.RegisterType<IRelayProviderReceiver<TemperatureChangedEventArgs>, SignalrRelayProviderReceiver<TemperatureChangedEventArgs>>(new ContainerControlledLifetimeManager());
 
 			// ***
 			// *** Background Services
