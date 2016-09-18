@@ -50,8 +50,7 @@ namespace Porrey.SensorTelemetry
 			// ***
 			IMobileServicesConfiguration mobileServicesConfiguration = new MobileServicesConfiguration()
 			{
-				//Url = "{YOUR MOBILE SERVICES URL HERE}"
-				Url = "http://sensortelemetry.azurewebsites.net"
+				Url = "{YOUR MOBILE SERVICES URL HERE}"
 			};
 			container.RegisterInstance<IMobileServicesConfiguration>(mobileServicesConfiguration, new ContainerControlledLifetimeManager());
 
@@ -60,10 +59,8 @@ namespace Porrey.SensorTelemetry
 			// ***
 			IServiceBusConfiguration serviceBusConfiguration = new ServiceBusConfiguration()
 			{
-				//ConnectionString = "{YOUR MOBILE SERVICES URL HERE}",
-				//QueueName = "{YOUR EVENT HUB NAME HERE}",
-				ConnectionString = "Endpoint=sb://sensortelemetrybus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=NuYZCX4VQ8F4k0+TIPRRH8RKSdR/LNK4f/0whkWCM7M=",
-				QueueName = "temperature",
+				ConnectionString = "{YOUR MOBILE SERVICES URL HERE}",
+				QueueName = "{YOUR EVENT HUB NAME HERE}",
 				DefaultTransportType = TransportType.Amqp
 			};
 			container.RegisterInstance<IServiceBusConfiguration>(serviceBusConfiguration, new ContainerControlledLifetimeManager());

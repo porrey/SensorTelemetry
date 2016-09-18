@@ -52,8 +52,10 @@ namespace Porrey.SensorTelemetry
 			// ***
 			IIotHubConfiguration iotHubConfiguration = new IotHubConfiguration()
 			{
-				ConnectionString = "{YOUR CONNECTION STRING HERE}",
-				DeviceId = "{YOUR DEVICE ID HERE}"
+				//ConnectionString = "{YOUR CONNECTION STRING HERE}",
+				//DeviceId = "{YOUR DEVICE ID HERE}"
+				ConnectionString = "HostName=SensorTelemetry.azure-devices.net;SharedAccessKeyName=service;SharedAccessKey=Sx9N/cGwA0ZnYd80eMY0s2XzMpVv3kiQ65FeiU3a8KI=",
+				DeviceId = "TemperatureDevice1"
 			};
 			this.Container.RegisterInstance<IIotHubConfiguration>(iotHubConfiguration, new ContainerControlledLifetimeManager());
 
