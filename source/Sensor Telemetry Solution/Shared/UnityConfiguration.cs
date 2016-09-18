@@ -33,7 +33,7 @@ using ppatierno.AzureSBLite.Messaging;
 namespace Porrey.SensorTelemetry
 {
 	public static class UnityConfiguration
-    {
+	{
 		public static Task InitializeContainer(IUnityContainer container, INavigationService navigationService)
 		{
 			// ***
@@ -50,7 +50,8 @@ namespace Porrey.SensorTelemetry
 			// ***
 			IMobileServicesConfiguration mobileServicesConfiguration = new MobileServicesConfiguration()
 			{
-				Url = "{YOUR MOBILE SERVICES URL HERE}"
+				//Url = "{YOUR MOBILE SERVICES URL HERE}"
+				Url = "http://sensortelemetry.azurewebsites.net"
 			};
 			container.RegisterInstance<IMobileServicesConfiguration>(mobileServicesConfiguration, new ContainerControlledLifetimeManager());
 
@@ -59,8 +60,10 @@ namespace Porrey.SensorTelemetry
 			// ***
 			IServiceBusConfiguration serviceBusConfiguration = new ServiceBusConfiguration()
 			{
-				ConnectionString = "{YOUR MOBILE SERVICES URL HERE}",
-				QueueName = "{YOUR EVENT HUB NAME HERE}",
+				//ConnectionString = "{YOUR MOBILE SERVICES URL HERE}",
+				//QueueName = "{YOUR EVENT HUB NAME HERE}",
+				ConnectionString = "Endpoint=sb://sensortelemetrybus.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=NuYZCX4VQ8F4k0+TIPRRH8RKSdR/LNK4f/0whkWCM7M=",
+				QueueName = "temperature",
 				DefaultTransportType = TransportType.Amqp
 			};
 			container.RegisterInstance<IServiceBusConfiguration>(serviceBusConfiguration, new ContainerControlledLifetimeManager());
@@ -68,8 +71,8 @@ namespace Porrey.SensorTelemetry
 			// ***
 			// *** All temperature readings will pass through SignalR.
 			// ***
-			container.RegisterType<IRelayProviderSender<TemperatureChangedEventArgs>, SignalrRelayProviderSender<TemperatureChangedEventArgs>>(new ContainerControlledLifetimeManager());
-			container.RegisterType<IRelayProviderReceiver<TemperatureChangedEventArgs>, SignalrRelayProviderReceiver<TemperatureChangedEventArgs>>(new ContainerControlledLifetimeManager());
+			container.RegisterType<IRelayProviderSender<TemperatureChangedEventArgs>, ServiceBusRelayProviderSender<TemperatureChangedEventArgs>>(new ContainerControlledLifetimeManager());
+			container.RegisterType<IRelayProviderReceiver<TemperatureChangedEventArgs>, ServiceBusRelayProviderReceiver<TemperatureChangedEventArgs>>(new ContainerControlledLifetimeManager());
 
 			// ***
 			// *** Background Services
@@ -94,5 +97,5 @@ namespace Porrey.SensorTelemetry
 
 			return Task.FromResult(0);
 		}
-    }
+	}
 }

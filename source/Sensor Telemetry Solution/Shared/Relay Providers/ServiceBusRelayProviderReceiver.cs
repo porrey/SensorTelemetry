@@ -1,9 +1,6 @@
-﻿using System;
-using System.IO;
-using System.Text;
+﻿using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR.Client;
 using Microsoft.Practices.Unity;
 using Newtonsoft.Json;
 using Porrey.SensorTelemetry.Interfaces;
