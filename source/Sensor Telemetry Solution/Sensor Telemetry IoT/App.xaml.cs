@@ -85,7 +85,7 @@ namespace Porrey.SensorTelemetry
 			// *** loaded to the IoT device and will only be RECIEVING commands.
 			// ***
 			this.Container.RegisterType<IRelayProviderSender<DeviceCommandEventArgs>, NullRelayProviderSender<DeviceCommandEventArgs>>(new ContainerControlledLifetimeManager());
-			this.Container.RegisterType<IRelayProviderReceiver<DeviceCommandEventArgs>, IotHubRelayProviderReceiverTpm<DeviceCommandEventArgs>>(new ContainerControlledLifetimeManager());
+			this.Container.RegisterType<IRelayProviderReceiver<DeviceCommandEventArgs>, IotHubRelayProviderReceiver<DeviceCommandEventArgs>>(new ContainerControlledLifetimeManager());
 
 			// ***
 			// *** Initialize the container with registrations used by both versions of the application.
