@@ -94,6 +94,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Relay Providers\IotHubRelayProviderReceiverTpm.cs" />
     <Compile Include="Relay Providers\IotHubRelayProviderReceiver.cs" />
   </ItemGroup>
   <ItemGroup>
