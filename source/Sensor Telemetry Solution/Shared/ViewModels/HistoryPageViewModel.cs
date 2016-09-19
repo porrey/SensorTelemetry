@@ -17,6 +17,7 @@
 //
 using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Microsoft.Practices.Unity;
 using Microsoft.WindowsAzure.MobileServices;
