@@ -17,7 +17,6 @@
 //
 using System;
 using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR.Client;
 using Microsoft.Practices.Unity;
 using Porrey.SensorTelemetry.Common;
 using Porrey.SensorTelemetry.Interfaces;
@@ -29,14 +28,11 @@ using Prism.Events;
 namespace Porrey.SensorTelemetry.Services
 {
 	/// <summary>
-	/// This service relays commands between the internal Event Aggregator and Signal
-	/// so that messages sent are relayed to and from other clients.
+	/// This service relays commands between the internal Event Aggregator and external
+	/// services so that messages sent are relayed to and from other clients.
 	/// </summary>
 	public class NotificationRelayService : IBackgroundService
 	{
-		private HubConnection _hubConnection { get; set; }
-		private IHubProxy _proxy { get; set; }
-
 		private EventRelayMap<TemperatureChangedEventArgs> _temperatureChangedEventMap = null;
 		private EventRelayMap<DeviceCommandEventArgs> _deviceCommandEventMap = null;
 
