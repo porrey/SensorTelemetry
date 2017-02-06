@@ -34,7 +34,7 @@ namespace Porrey.SensorTelemetry.Relays
 
 		public void SetCallback(string eventName, IRelayProviderCallbackDelegate<T> callback)
 		{
-			Proxy.On<T>(eventName, (e) =>
+			this.Proxy.On<T>(eventName, (e) =>
 			{
 				callback?.Invoke(e);
 			});
